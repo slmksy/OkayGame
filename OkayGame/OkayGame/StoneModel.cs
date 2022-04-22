@@ -22,6 +22,7 @@ namespace OkayGame
 		private StoneModel()
 		{
 			dictStone = new Dictionary<int, Stone>();
+			
 		}
 		#endregion
 
@@ -51,7 +52,7 @@ namespace OkayGame
 			return dictStone.First(t => t.Value.Number == number &&
 				t.Value.StoneColor == color).Value;
 		}
-		private void CreateStones() 
+		public void CreateStones() 
 		{
 			int id = 0;
 			for (int i = 1; i <= 13; ++i) 

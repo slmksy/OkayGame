@@ -40,7 +40,7 @@ namespace OkayGame
 
 		public override String ToString() 
 		{
-			return string.Concat(StoneColor.ToString(), " ", Number);
+			return string.Concat(StoneColor.Name, " ", Number);
 		}
 		#endregion
 

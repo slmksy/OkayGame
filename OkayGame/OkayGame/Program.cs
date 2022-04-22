@@ -6,7 +6,10 @@ namespace OkayGame
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            StoneModel.Instance.CreateStones();
+            GameController gameController = new GameController();
+            gameController.CreateNewGame();
+            gameController.WriteStones(0);
         }
     }
 }

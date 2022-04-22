@@ -54,36 +54,54 @@ namespace OkayGame
 
 		}
 
+		public int CalculateFreeStones(int playerID) 
+		{
+			var stones = dictPlayerStones[playerID];
+
+			return 0;
+		}
+
+		public void WriteStones(int playerID) 
+		{
+			var stones = dictPlayerStones[playerID];
+
+			foreach(var stone in stones) 
+			{
+				Console.WriteLine(stone.ToString() + " | ");
+			}
+		}
+
 
 		#endregion
 
 		#region Private Methods
 		private void ShareStones() 
 		{
-			var chosenPersonID = random.Next(0, 4);
-			var lastIndex = GiveStone(chosenPersonID, 15,0);
+			var chosenPlayerID = random.Next(0, 4);
+			var lastIndex = GiveStone(chosenPlayerID, 15,0);
 
 			for(int i = 0; i < 4; ++i) 
 			{
-                if (i == chosenPersonID) 
+                if (i == chosenPlayerID) 
 				{
 					continue;
 				}
 
-				lastIndex = GiveStone(chosenPersonID, 15, lastIndex);
+				lastIndex = GiveStone(i, 14, lastIndex);
 			}
 		}
 
-		private int GiveStone(int personID, int stoneCount, int startIndex) 
+		private int GiveStone(int playerID, int stoneCount, int startIndex) 
 		{
-			Stone[] personStones = new Stone[stoneCount];
-			for (int i = startIndex; i < stoneCount; ++i)
+			Stone[] playerStones = new Stone[stoneCount];
+			var stoneIndex = 0;
+			for (int i = startIndex; i < startIndex + stoneCount; ++i)
 			{
 				var stone = StoneModel.Instance.GetStone(stonesIdArr[i]);
-				personStones[i] = stone;
+				playerStones[stoneIndex++] = stone;
 			}
 
-			dictPlayerStones[personID] = personStones;
+			dictPlayerStones[playerID] = playerStones;
 
 			return startIndex + stoneCount;
 		}
@@ -104,7 +122,7 @@ namespace OkayGame
 		private void CreateNumbers(int startIndex) 
 		{
 			List<int> tempList = new List<int>();
-			for (int i = 1; i <= 53; ++i)
+			for (int i = 0; i < 53; ++i)
 			{
 				tempList.Add(i);
 			}
