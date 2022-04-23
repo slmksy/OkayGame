@@ -66,7 +66,7 @@ namespace OkayGame
 			Console.WriteLine("OKAY STONE : " + OkayStone.ToString()+ "\n");
 		}
 
-		public int GetWinnerPlayer() 
+		public IEnumerable<int> GetWinnerPlayer() 
 		{
 			Dictionary<int, int> dictRemaingCount = new Dictionary<int, int>();
 			dictRemaingCount.Add(0, CalculateFreeStones(0));
@@ -75,7 +75,7 @@ namespace OkayGame
 			dictRemaingCount.Add(3, CalculateFreeStones(3));
 
 			var minCount = dictRemaingCount.Min(t=>t.Value);
-			return dictRemaingCount.First(t => t.Value == minCount).Key;
+			return dictRemaingCount.ToList().FindAll(t => t.Value == minCount).Select(t=>t.Key);
 		}
 
 		public int CalculateFreeStones(int playerID) 

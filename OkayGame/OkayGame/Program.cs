@@ -10,8 +10,12 @@ namespace OkayGame
             GameController gameController = new GameController();
             gameController.CreateNewGame();
 
-            var winnerId = gameController.GetWinnerPlayer();
-            Console.WriteLine("\n\n --- WINNER PLAYER --- PLAYERID : " + winnerId + "\n\n\n");
+            var winners = gameController.GetWinnerPlayer();
+            foreach(var winnerId in winners) 
+            {
+                Console.WriteLine("\n\n --- WINNER PLAYER --- PLAYERID : " + winnerId + "\n\n\n");
+            }
+            
 
         }
     }
