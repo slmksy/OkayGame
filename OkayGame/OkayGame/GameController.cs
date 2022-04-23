@@ -151,9 +151,8 @@ namespace OkayGame
 								continue;
 							}
 
-							if (
-								(current.StoneColor == next.StoneColor &&
-								current.Number + 1 == next.Number))
+							if (current.StoneColor == next.StoneColor &&
+								current.Number + 1 == next.Number)
 							{
 								tempList.Add(next);
 								serialCount += 1;
