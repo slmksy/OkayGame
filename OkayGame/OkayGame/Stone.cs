@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OkayGame
 {
-    public class Stone
+    public class Stone 
     {
 		#region Constants
 
@@ -34,13 +34,23 @@ namespace OkayGame
 			get;
 			set;
 		}
+
+		public bool IsFakeOkay 
+		{
+			get;
+			set;
+			
+		}
+
+
 		#endregion
 
 		#region Public Methods
 
 		public override String ToString() 
 		{
-			return string.Concat(StoneColor.Name, " ", Number);
+			string isFake = IsFakeOkay ? "Fake Okay" : "";
+			return string.Concat(StoneColor.Name, " ", Number, " ", isFake);
 		}
 		#endregion
 

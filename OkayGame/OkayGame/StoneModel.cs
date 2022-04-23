@@ -52,6 +52,15 @@ namespace OkayGame
 			return dictStone.First(t => t.Value.Number == number &&
 				t.Value.StoneColor == color).Value;
 		}
+
+		public void SetFakeOkayStone(Stone okayStone)
+		{
+			var stone = dictStone.First(t => t.Value.IsFakeOkay);
+			stone.Value.Number = okayStone.Number;
+			stone.Value.StoneColor = okayStone.StoneColor;
+		}
+
+		
 		public void CreateStones() 
 		{
 			int id = 0;
@@ -76,7 +85,7 @@ namespace OkayGame
 			}
 
 			//sahte okay
-			dictStone.Add(id++, new Stone() { StoneColor = Color.White, Number = 0 });
+			dictStone.Add(id++, new Stone() { StoneColor = Color.White, Number = 0, IsFakeOkay = true }) ;
 
 		}
 		#endregion

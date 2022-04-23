@@ -9,7 +9,10 @@ namespace OkayGame
             StoneModel.Instance.CreateStones();
             GameController gameController = new GameController();
             gameController.CreateNewGame();
-            gameController.WriteStones(0);
+
+            var winnerId = gameController.GetWinnerPlayer();
+            Console.WriteLine("\n\n --- WINNER PLAYER --- PLAYERID : " + winnerId + "\n\n\n");
+
         }
     }
 }
