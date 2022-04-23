@@ -14,8 +14,8 @@ namespace OkayGame
 		private int[] stonesIdArr;
 		private Random random;
 		private Dictionary<int, Stone[]> dictPlayerStones;
-		StoneComparater stoneComparater = new StoneComparater();
-		List<Stone> remainingList = new List<Stone>();
+		private StoneComparater stoneComparater = new StoneComparater();
+		private List<Stone> remainingList = new List<Stone>();
 		#endregion
 
 		#region Constructors
@@ -39,7 +39,11 @@ namespace OkayGame
 			private set;
 		}
 
-		public bool HaveOkayStone(List<Stone> stones, List<Stone> willRemoved) 
+
+		#endregion
+
+		#region Public Methods
+		public bool HaveOkayStone(List<Stone> stones, List<Stone> willRemoved)
 		{
 			var haveItems = stones.FindAll(t => !t.IsFakeOkay &&
 			t.Number == OkayStone.Number && t.StoneColor == OkayStone.StoneColor);
@@ -49,9 +53,7 @@ namespace OkayGame
 
 			return (haveItems.Count != willRemoved.Count);
 		}
-		#endregion
 
-		#region Public Methods
 		public void CreateNewGame() 
 		{
 			dictPlayerStones[0] = null;
@@ -102,7 +104,21 @@ namespace OkayGame
 			return remainingList.Count;
 		}
 
-		private void RemoveSameColorQNumbers(List<Stone> stonesList, int playerID, int qCount) 
+		
+		public void WriteStones(int playerID) 
+		{
+			var stones = dictPlayerStones[playerID];
+
+			foreach(var stone in stones) 
+			{
+				Console.WriteLine(stone.ToString() + " | ");
+			}
+		}
+
+		#endregion
+
+		#region Private Methods
+		private void RemoveSameColorQNumbers(List<Stone> stonesList, int playerID, int qCount)
 		{
 			List<Stone> willRemoved = new List<Stone>();
 			for (int i = 0; i < stonesList.Count - 1; ++i)
@@ -114,28 +130,28 @@ namespace OkayGame
 				int serialCount = 1;
 				bool haveOkay = HaveOkayStone(stonesList, willRemoved);
 
-				if (current.StoneColor == next.StoneColor )
+				if (current.StoneColor == next.StoneColor)
 				{
-					if (current.Number + 1 == next.Number )
+					if (current.Number + 1 == next.Number)
 					{
 						tempList.Add(current);
 						tempList.Add(next);
 						serialCount += 1;
 
-						for (int k = i+1; k < stonesList.Count - 1; ++k)
+						for (int k = i + 1; k < stonesList.Count - 1; ++k)
 						{
 							current = stonesList[k];
 							next = stonesList[k + 1];
-                            if (
-								next.Number == stonesList[k-1].Number + 2) 
+							if (
+								next.Number == stonesList[k - 1].Number + 2)
 							{
 								tempList.Add(next);
 								serialCount += 1;
 								i += 1;
 								continue;
-							}							
+							}
 
-							if ( 
+							if (
 								(current.StoneColor == next.StoneColor &&
 								current.Number + 1 == next.Number))
 							{
@@ -155,7 +171,7 @@ namespace OkayGame
 					}
 				}
 			}
-		
+
 			foreach (var t in willRemoved)
 			{
 				remainingList.Remove(t);
@@ -164,12 +180,12 @@ namespace OkayGame
 			remainingList = remainingList.OrderBy(t => t.Number).ToList();
 		}
 
-		private void RemoveOkayStone() 
+		private void RemoveOkayStone()
 		{
 			var items = remainingList.FindAll(t => t.Number == OkayStone.Number &&
-			t.StoneColor == OkayStone.StoneColor && !t.IsFakeOkay); 
-			
-			foreach(var t in items)
+			t.StoneColor == OkayStone.StoneColor && !t.IsFakeOkay);
+
+			foreach (var t in items)
 			{
 				remainingList.Remove(t);
 			}
@@ -179,8 +195,8 @@ namespace OkayGame
 		{
 			remainingList.Sort(stoneComparater);
 			Console.WriteLine("\n\n --- Remaining Stones --- PlayerID : " + playerID);
-			
-			foreach (var t in remainingList) 
+
+			foreach (var t in remainingList)
 			{
 				Console.WriteLine(t.ToString());
 			}
@@ -235,20 +251,6 @@ namespace OkayGame
 			}
 		}
 
-		public void WriteStones(int playerID) 
-		{
-			var stones = dictPlayerStones[playerID];
-
-			foreach(var stone in stones) 
-			{
-				Console.WriteLine(stone.ToString() + " | ");
-			}
-		}
-
-
-		#endregion
-
-		#region Private Methods
 		private void ShareStones() 
 		{
 			var chosenPlayerID = random.Next(0, 4);
